@@ -1,14 +1,17 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const playerSchema = mongoose.Schema({
+const playerSchema = mongoose.Schema(
+  {
     country: String,
     username: String,
     rank: Number,
     money: Number,
     dailyDiff: Number,
-}, {collection: ''});
+    weeklyDiff: Number,
+  },
+  { collection: "" }
+);
 
-const Player = mongoose.model('Player', playerSchema);
+const Player = mongoose.model("Player", playerSchema);
 
-
-export default Player; 
+export default Player;
