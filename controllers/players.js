@@ -1,30 +1,31 @@
 import Player from "../models/players.js";
-import redis from "redis";
+import { redisClient } from "../app.js";
+// import redis from "redis";
 
-var redisClient = redis.createClient();
+// var redisClient = redis.createClient();
 
-redisClient.on("connect", function () {
-  console.log("Redis client connected");
-});
+// redisClient.on("connect", function () {
+//   console.log("Redis client connected");
+// });
 
-redisClient.on("error", function (err) {
-  console.log("Redis bağlantısı yapılamadı: " + err);
-});
+// redisClient.on("error", function (err) {
+//   console.log("Redis bağlantısı yapılamadı: " + err);
+// });
 
 export const getPlayers = async (req, res) => {
-  Player.find((err, doc) => {
-    doc.forEach((item) => {
-      let userName = "User:" + item._doc._id;
-
-      redisClient.get(userName, (err, user) => {
-        var data = JSON.stringify(item._doc);
-        console.log(data);
-        redisClient.set(userName, data, () => {});
-      });
-    });
-  });
   // console.log(res);
   try {
+    // Player.find((err, doc) => {
+    //   doc.forEach((item) => {
+    //     let userName = "User:" + item._doc._id;
+
+    //     redisClient.get(userName, (err, user) => {
+    //       var data = JSON.stringify(item._doc);
+    //       console.log(data);
+    //       redisClient.set(userName, data, () => {});
+    //     });
+    //   });
+    // });
     if (redisClient.connected) {
       // Redis bağlıysa
       redisClient.keys("User*", async (err, keys) => {
@@ -68,12 +69,13 @@ export const getPlayers = async (req, res) => {
           // res.status(200).json(players);
         }
       });
-    } else {
-      // Redis bağlı değilse
-      const players = await Player.find();
-      players.sort((a, b) => b.dailyDiff - a.dailyDiff);
-      res.status(200).json(players);
     }
+    // else {
+    //   // Redis bağlı değilse
+    //   const players = await Player.find();
+    //   players.sort((a, b) => b.dailyDiff - a.dailyDiff);
+    //   res.status(200).json(players);
+    // }
   } catch (err) {
     res.status(404).json({
       message: err.message,

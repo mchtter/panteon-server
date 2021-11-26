@@ -10,15 +10,15 @@ import redis from "redis";
 
 // Redis Client
 
-// let redisClient = redis.createClient();
+export const redisClient = redis.createClient();
 
-// redisClient.on("connect", function () {
-//   console.log("Redis client connected");
-// });
+redisClient.on("connect", function () {
+  console.log("Redis client connected");
+});
 
-// redisClient.on("error", function (err) {
-//   console.log("Something went wrong " + err);
-// });
+redisClient.on("error", function (err) {
+  console.log("Something went wrong " + err);
+});
 
 const app = express(); // create express app
 dotenv.config(); // load env variables
