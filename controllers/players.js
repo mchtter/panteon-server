@@ -15,24 +15,23 @@ import { redisClient } from "../app.js";
 export const getPlayers = async (req, res) => {
   // console.log(res);
   try {
-    Player.find((err, doc) => {
-      doc.forEach((item) => {
-        let userName = "User:" + item._doc._id;
-
-        redisClient.get(userName, (err, user) => {
-          var data = JSON.stringify(item._doc);
-          console.log(data);
-          redisClient.set(userName, data, () => {});
-        });
-      });
-    });
     if (redisClient.connected) {
       // Redis bağlıysa
       redisClient.keys("User*", async (err, keys) => {
         if (keys.length > 0) {
           // Rediste veri varsa
           // Önce güncelle
+          Player.find((err, doc) => {
+            doc.forEach((item) => {
+              let userName = "User:" + item._doc._id;
 
+              redisClient.get(userName, (err, user) => {
+                var data = JSON.stringify(item._doc);
+                console.log(data);
+                redisClient.set(userName, data, () => {});
+              });
+            });
+          });
           //Sonra Göster
           let players = [];
           for (var i = 0; i < keys.length; i++) {
