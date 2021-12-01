@@ -7,6 +7,7 @@ import playerRoutes from "./routes/players.js";
 import changeRoutes from "./routes/update.js";
 import updateMoney from "./routes/money.js";
 import redis from "redis";
+import { counterTime, calculatePoolMoney } from "./controllers/money.js";
 
 // Redis Client
 
@@ -52,4 +53,6 @@ mongoose
     console.log(err);
   }); // connect to database
 
-export const pool = async (req, res) => {};
+setTimeout(() => {
+  calculatePoolMoney();
+}, counterTime());

@@ -56,6 +56,8 @@ export const calculatePoolMoney = async (req, res) => {
   for (let i = 3; i < players.length; i++) {
     moneyToBeDistributed.push(moneyOfOtherPlayers);
   }
+
+  payPlayerMoney(moneyToBeDistributed, players);
 };
 
 export const payPlayerMoney = async (moneyOfPlayers, playerList) => {
@@ -68,27 +70,14 @@ export const payPlayerMoney = async (moneyOfPlayers, playerList) => {
   }
 };
 
-calculatePoolMoney();
-
-export const weeklyTimer = async (req, res) => {
+export const counterTime = async (req, res) => {
   let today = new Date();
   let nextMonday = new Date();
-  let monday = 1;
 
-  nextMonday.setDate(today.getDate() + ((1 + today.getDay() + 7) % 7) + 1);
+  nextMonday.setDate(today.getDate() + ((6 + today.getDay() + 7) % 7) + 1);
   nextMonday.setHours(12, 0, 0, 0);
-  console.log("nextMonday");
-  console.log(nextMonday);
-  var currentTime = today.getTime();
-  var aTime = nextMonday.getTime();
+  nextMonday = nextMonday.getTime();
 
-  console.log(currentTime);
-  console.log(aTime);
-
-  // console.log(nextMonday);
-  // if (redisClient.connected) {
-  //   console.log(redisClient.get());
-  // }
+  let time = nextMonday - today;
+  return time;
 };
-
-weeklyTimer();
