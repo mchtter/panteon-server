@@ -11,11 +11,16 @@ import { counterTime, calculatePoolMoney } from "./controllers/money.js";
 
 // Redis Client
 
-export const redisClient = redis.createClient();
+export const redisClient = redis.createClient({
+  host: 'redis-11803.c55.eu-central-1-1.ec2.cloud.redislabs.com', // The redis's server ip 
+  port: '11803',
+  password: 'ZPXTiUWiz7CiZFlwJR0I7CrXJ8LW8TkO'
+  });
 
 redisClient.on("connect", function () {
   console.log("Redis client connected");
 });
+
 
 redisClient.on("error", function (err) {
   console.log("Something went wrong " + err);
