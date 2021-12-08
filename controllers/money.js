@@ -1,35 +1,45 @@
 import Player from "../models/players.js";
 
 export const inreasePlayerMoney = async (req, res) => {
-  let playerId;
-  try {
-    playerId = Object.keys(req.body)[0];
+  let playerId = req.body._id;
+  req.body.money += 100;
 
-    await Player.findOneAndUpdate(
-      { _id: playerId },
-      { $inc: { money: 100 } },
-      { new: true }
-    );
-    // const player = await Player.findById(playerId);
-    // console.log(update);
-  } catch (error) {}
+  try {
+    // Update Database
+    await Player.findOneAndUpdate({ _id: playerId }, req.body, {
+      new: true,
+    });
+
+    // Update Redis
+    if (redisClient.connected) {
+      var userName = "User:" + playerId;
+      var data = JSON.stringify(req.body);
+      redisClient.set(userName, data, (err, res) => {});
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const decreasePlayerMoney = async (req, res) => {
-  let playerId;
+  let playerId = req.body._id;
+  req.body.money -= 100;
+
   try {
-    playerId = Object.keys(req.body)[0];
-    await Player.findOneAndUpdate(
-      { _id: playerId },
-      { $inc: { money: -100 } },
-      { new: true }
-    );
-    // console.log(update);
-    // console.log(req.body)
-    // console.log(req.params.id)
-    // console.log(req)
-    // const player = await Player.findById(req.params.id);
-  } catch (error) {}
+    // Update Database
+    await Player.findOneAndUpdate({ _id: playerId }, req.body, {
+      new: true,
+    });
+
+    // Update Redis
+    if (redisClient.connected) {
+      var userName = "User:" + playerId;
+      var data = JSON.stringify(req.body);
+      redisClient.set(userName, data, (err, res) => {});
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const calculatePoolMoney = async (req, res) => {
