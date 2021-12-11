@@ -10,14 +10,12 @@ import redis from "redis";
 import { calculatePoolMoney } from "./controllers/money.js";
 import cron from "cron";
 
-export const cronTimer = new cron.CronJob('0 * * * * *', () => { 
-  console.log("cron job");
-
-calculatePoolMoney()
-
+export const cronTimer = new cron.CronJob('0 0 3 * * 2', () => { 
+  // triggers every Tuesday at 3am
+  calculatePoolMoney()
 })
 
-cronTimer.start();
+cronTimer.start(); // start cron job
 
 
 // Redis Client
