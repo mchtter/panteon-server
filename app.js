@@ -7,7 +7,18 @@ import playerRoutes from "./routes/players.js";
 import changeRoutes from "./routes/update.js";
 import updateMoney from "./routes/money.js";
 import redis from "redis";
-import { counterTime, calculatePoolMoney } from "./controllers/money.js";
+import { calculatePoolMoney } from "./controllers/money.js";
+import cron from "cron";
+
+export const cronTimer = new cron.CronJob('0 * * * * *', () => { 
+  console.log("cron job");
+
+calculatePoolMoney()
+
+})
+
+cronTimer.start();
+
 
 // Redis Client
 
@@ -57,7 +68,3 @@ mongoose
   .catch((err) => {
     console.log(err);
   }); // connect to database
-
-setTimeout(() => {
-  calculatePoolMoney();
-}, counterTime());

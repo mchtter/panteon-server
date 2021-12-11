@@ -43,6 +43,7 @@ export const decreasePlayerMoney = async (req, res) => {
 };
 
 export const calculatePoolMoney = async (req, res) => {
+  console.log("çalıştı")
   let moneyPool = null;
   let moneyToBeDistributed = [];
   // FIXME: Küsuratlı sayılar havuzda toplanıp sonraki haftaya eklenebilir veya olduğu gibi kalabilir. ????
@@ -78,16 +79,4 @@ export const payPlayerMoney = async (moneyOfPlayers, playerList) => {
       { new: true }
     );
   }
-};
-
-export const counterTime = async (req, res) => {
-  let today = new Date();
-  let nextMonday = new Date();
-
-  nextMonday.setDate(today.getDate() + ((6 + today.getDay() + 7) % 7) + 1);
-  nextMonday.setHours(12, 0, 0, 0);
-  nextMonday = nextMonday.getTime();
-
-  let time = nextMonday - today;
-  return time;
 };
