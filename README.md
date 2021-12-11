@@ -1,4 +1,4 @@
-# Getting Started with Panteon Gaming Backend ExpressJS API
+# Getting Started with Panteon Gaming ExpressJS API
 
 ## Broadcast Link
 
