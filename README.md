@@ -1,6 +1,6 @@
 ## Panteon Gaming Backend API
 
-How to use:
+How to install & use:
 
 `yarn install` or `npm install` for install dependencies
 
