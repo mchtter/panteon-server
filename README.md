@@ -36,6 +36,16 @@ It monitors the user data instantly, creates a pool from the user money
 on a weekly basis. It distributes rewards to the users according to the 
 success ranking from the pool created.
 
+### Broadcast Link
+
+https://panteon-node-server.herokuapp.com/
 
 
+Redis Hosting: 
 
+redis-11803.c55.eu-central-1-1.ec2.cloud.redislabs.com
+
+
+MongoDB Cloud 
+
+mongodb+srv://panteon-data:pagbiH-cecbah-7bobdo@cluster0.o2qp5.mongodb.net/PanteonPlayersDatabase?retryWrites=true&w=majority
