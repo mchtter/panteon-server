@@ -32,6 +32,9 @@ You will also see any lint errors in the console.
 After caching the user list coming from a database with high traffic 
 player data with 'REDIS Cache', it distributes with the '/players' endpoint.
 
+If there is data in the 'redis cache', it returns the data, 
+if not, it calls the data using the 'mongobd' connection.
+
 It monitors the user data instantly, creates a pool from the user money
 on a weekly basis. It distributes rewards to the users according to the 
 success ranking from the pool created.
